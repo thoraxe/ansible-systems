@@ -37,7 +37,14 @@
       state: present
   - name: Install workrave
     dnf:
-      name: workrave
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - "workrave"
+      - "workrave-gtk2"
+  - name: Install filezilla
+    dnf:
+      name: filezilla
       state: present
 
 - name: VLC and codecs
