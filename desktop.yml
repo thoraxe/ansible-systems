@@ -1,0 +1,78 @@
+# vim: set ft=ansible:
+---
+- name: RPMFusion repositories
+  hosts: localhost
+  tasks:
+    - name: RPMFusion free
+      dnf:
+        name: "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-24.noarch.rpm"
+        state: present
+    - name: RPMFusion nonfree
+      dnf:
+        name: "http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-24.noarch.rpm"
+        state: present
+
+- name: Browser and base
+  hosts: localhost
+  tasks:
+  - name: Set up Chrome repository
+    yum_repository:
+      name: google-chrome
+      description: google-chrome
+      baseurl: "http://dl.google.com/linux/chrome/rpm/stable/x86_64"
+      enabled: yes
+      gpgcheck: yes
+      gpgkey: "https://dl.google.com/linux/linux_signing_key.pub"
+  - name: "Install Chrome package (if not already)"
+    dnf:
+      name: google-chrome-stable
+      state: present
+  - name: Install Dropbox
+    dnf:
+      name: "https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2015.10.28-1.fedora.x86_64.rpm"
+      state: present
+  - name: Install gnome-tweak-tool
+    dnf:
+      name: gnome-tweak-tool
+      state: present
+  - name: Install workrave
+    dnf:
+      name: workrave
+      state: present
+
+- name: VLC and codecs
+  hosts: localhost
+  tasks:
+    - name: Install gstreamer codecs
+      dnf:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "gstreamer-plugins-bad"
+        - "gstreamer-plugins-bad-free"
+        - "gstreamer-plugins-bad-free-extras"
+        - "gstreamer-plugins-bad-nonfree"
+        - "gstreamer-plugins-good"
+        - "gstreamer-plugins-good-extras"
+        - "gstreamer-plugins-ugly"
+        - "gstreamer1-plugins-bad-free"
+        - "gstreamer1-plugins-bad-free-extras"
+        - "gstreamer1-plugins-good"
+        - "gstreamer1-plugins-good-extras"
+        - "gstreamer1-plugins-ugly"
+    - name: Install VLC player
+      dnf:
+        name: vlc
+        state: present
+
+- name: Graphic design and photo editing
+  hosts: localhost
+  tasks:
+    - name: Install darktable
+      dnf:
+        name: darktable
+        state: present
+    - name: Install gimp
+      dnf:
+        name: gimp
+        state: present
