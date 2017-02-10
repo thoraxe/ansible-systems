@@ -67,7 +67,7 @@
         - "gstreamer1-plugins-ugly"
         - "vlc"
 
-- name: Graphic design and photo editing
+- name: Graphic design, photo editing, video
   hosts: localhost
   tags:
     - graphic_design_and_photo_editing
@@ -79,6 +79,7 @@
       with_items:
         - "darktable"
         - "gimp"
+        - "blender"
 
 - name: Java and WebEx support
   hosts: localhost
