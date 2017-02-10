@@ -42,6 +42,11 @@
       - "redshift"
       - "pidgin"
       - "gparted"
+      - "tmux"
+      - "powerline"
+      - "powerline-fonts"
+      - "tmux-powerline"
+      - "vim-powerline"
 
 - name: VLC and codecs
   hosts: localhost
