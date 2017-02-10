@@ -47,6 +47,8 @@
       - "powerline-fonts"
       - "tmux-powerline"
       - "vim-powerline"
+      - "vim-enhanced"
+      - "vim-X11"
 
 - name: VLC and codecs
   hosts: localhost
