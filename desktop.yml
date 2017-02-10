@@ -79,3 +79,29 @@
       with_items:
         - "darktable"
         - "gimp"
+
+- name: Java and WebEx support
+  hosts: localhost
+  tags:
+    - java_and_webex_support
+  tasks:
+    - name: Install packages
+      dnf:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "java"
+        - "icedtea-web"
+        - "cairo.i686" 
+        - "pango.i686" 
+        - "mesa-libGL.i686" 
+        - "pangox-compat.i686" 
+        - "mesa-libglapi.i686" 
+        - "libXmu.i686" 
+        - "mesa-libEGL.i686" 
+        - "gtk2.i686" 
+        - "libpng.i686" 
+        - "alsa-lib.i686" 
+        - "libXtst.i686" 
+        - "libart_lgpl.i686"
+
