@@ -2,18 +2,21 @@
 ---
 - name: RPMFusion repositories
   hosts: localhost
+  tags:
+    - rpmfusion
   tasks:
-    - name: RPMFusion free
+    - name: Install packages
       dnf:
-        name: "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-24.noarch.rpm"
+        name: "{{ item }}"
         state: present
-    - name: RPMFusion nonfree
-      dnf:
-        name: "http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-24.noarch.rpm"
-        state: present
+      with_items:
+        - "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm"
+        - "http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm"
 
 - name: Browser and base
   hosts: localhost
+  tags:
+    - browser_and_base
   tasks:
   - name: Set up Chrome repository
     yum_repository:
@@ -23,38 +26,29 @@
       enabled: yes
       gpgcheck: yes
       gpgkey: "https://dl.google.com/linux/linux_signing_key.pub"
-  - name: "Install Chrome package (if not already)"
-    dnf:
-      name: google-chrome-stable
-      state: present
-  - name: Install Dropbox
-    dnf:
-      name: "https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2015.10.28-1.fedora.x86_64.rpm"
-      state: present
-  - name: Install htop
-    dnf:
-      name: "htop"
-      state: present
-  - name: Install gnome-tweak-tool
-    dnf:
-      name: gnome-tweak-tool
-      state: present
-  - name: Install workrave
+  - name: Install packages
     dnf:
       name: "{{ item }}"
       state: present
     with_items:
+      - "google-chrome-stable"
+      - "https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2015.10.28-1.fedora.x86_64.rpm"
+      - "htop"
+      - "gnome-tweak-tool"
       - "workrave"
       - "workrave-gtk2"
-  - name: Install filezilla
-    dnf:
-      name: filezilla
-      state: present
+      - "filezilla"
+      - "thunderbird"
+      - "redshift"
+      - "pidgin"
+      - "gparted"
 
 - name: VLC and codecs
   hosts: localhost
+  tags:
+    - vlc_and_codecs
   tasks:
-    - name: Install gstreamer codecs
+    - name: Install packages
       dnf:
         name: "{{ item }}"
         state: present
@@ -71,19 +65,17 @@
         - "gstreamer1-plugins-good"
         - "gstreamer1-plugins-good-extras"
         - "gstreamer1-plugins-ugly"
-    - name: Install VLC player
-      dnf:
-        name: vlc
-        state: present
+        - "vlc"
 
 - name: Graphic design and photo editing
   hosts: localhost
+  tags:
+    - graphic_design_and_photo_editing
   tasks:
-    - name: Install darktable
+    - name: Install packages
       dnf:
-        name: darktable
+        name: "{{ item }}
         state: present
-    - name: Install gimp
-      dnf:
-        name: gimp
-        state: present
+      with_items:
+        - "darktable"
+        - "gimp"
