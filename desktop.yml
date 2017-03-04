@@ -15,6 +15,7 @@
 
 - name: Browser and base
   hosts: localhost
+  gather_facts: false
   tags:
     - browser_and_base
   tasks:
@@ -38,9 +39,7 @@
       - "workrave"
       - "workrave-gtk2"
       - "filezilla"
-      - "thunderbird"
       - "redshift"
-      - "pidgin"
       - "gparted"
       - "tmux"
       - "powerline"
@@ -62,8 +61,24 @@
       state: present
       insertafter: EOF
 
+- name: Communication
+  hosts: localhost
+  gather_facts: false
+  tags:
+    - communication_tools
+  tasks:
+  - name: Install packages
+    dnf:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - "pidgin"
+      - "thunderbird"
+      - "https://repo.skype.com/latest/skypeforlinux-64.rpm"
+
 - name: VLC and codecs
   hosts: localhost
+  gather_facts: false
   tags:
     - vlc_and_codecs
   tasks:
@@ -88,6 +103,7 @@
 
 - name: Graphic design, photo editing, video
   hosts: localhost
+  gather_facts: false
   tags:
     - graphic_design_and_photo_editing
   tasks:
@@ -104,6 +120,7 @@
 
 - name: Java and WebEx support
   hosts: localhost
+  gather_facts: false
   tags:
     - java_and_webex_support
   tasks:
@@ -129,6 +146,7 @@
 
 - name: Flash plugin
   hosts: localhost
+  gather_facts: false
   tags:
     - flash_plugin
   tasks:
