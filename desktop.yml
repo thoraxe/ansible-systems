@@ -122,6 +122,10 @@
         - "blender"
         - "geeqie"
         - "LibRaw"
+        - "python2-click"
+        - "python3-click"
+        - "perl-Image-ExifTool"
+        - "ImageMagick"
 
 - name: Java and WebEx support
   hosts: localhost
