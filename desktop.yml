@@ -41,6 +41,7 @@
       - "filezilla"
       - "redshift"
       - "gparted"
+      - "libselinux-python"
       - "tmux"
       - "powerline"
       - "powerline-fonts"
