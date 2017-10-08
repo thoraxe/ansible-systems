@@ -155,11 +155,7 @@
   tags:
     - flash_plugin
   tasks:
-    - name: Install Flash repository
+    - name: Install Flash
       dnf:
-        name: "https://fpdownload.adobe.com/pub/flashplayer/pdc/24.0.0.221/flash-player-npapi-24.0.0.221-release.x86_64.rpm"
-        state: present
-    - name: Install Flash plugin
-      dnf:
-        name: "flash-plugin"
+        name: "https://fpdownload.adobe.com/pub/flashplayer/pdc/27.0.0.130/flash-player-ppapi-27.0.0.130-release.x86_64.rpm"
         state: present
