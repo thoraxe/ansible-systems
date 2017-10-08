@@ -61,6 +61,10 @@
       line: "fs.inotify.max_user_watches = 1000000"
       state: present
       insertafter: EOF
+    register: inotify_result
+  - name: persist inotify changes
+    command: "sysctl -p"
+    when: inotify_result | changed
 
 - name: Communication
   hosts: localhost
