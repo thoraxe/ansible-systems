@@ -33,6 +33,7 @@
       state: present
     with_items:
       - "google-chrome-stable"
+      - "chrome-gnome-shell"
       - "https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2015.10.28-1.fedora.x86_64.rpm"
       - "htop"
       - "gnome-tweak-tool"
@@ -153,13 +154,13 @@
         - "libXtst.i686" 
         - "libart_lgpl.i686"
 
-- name: Flash plugin
-  hosts: localhost
-  gather_facts: false
-  tags:
-    - flash_plugin
-  tasks:
-    - name: Install Flash
-      dnf:
-        name: "https://fpdownload.adobe.com/pub/flashplayer/pdc/27.0.0.130/flash-player-ppapi-27.0.0.130-release.x86_64.rpm"
-        state: present
+          #- name: Flash plugin
+          #  hosts: localhost
+          #  gather_facts: false
+          #  tags:
+          #    - flash_plugin
+          #  tasks:
+          #    - name: Install Flash
+          #      dnf:
+          #        name: "https://fpdownload.adobe.com/pub/flashplayer/pdc/27.0.0.130/flash-player-ppapi-27.0.0.130-release.x86_64.rpm"
+          #        state: present
