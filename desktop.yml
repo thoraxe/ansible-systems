@@ -34,7 +34,7 @@
     with_items:
       - "google-chrome-stable"
       - "chrome-gnome-shell"
-      - "https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2015.10.28-1.fedora.x86_64.rpm"
+      - "dropbox"
       - "htop"
       - "gnome-tweak-tool"
       - "workrave"
