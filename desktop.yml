@@ -13,6 +13,15 @@
         - "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm"
         - "http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm"
 
+- name: Flatpak
+  hosts: localhost
+  tags:
+    - flatpak
+  tasks:
+    # assumes flatpak already installed (on Fedora it is)
+    - name: Add flatpak repo
+      cmd: 'flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo' 
+
 - name: Browser and base
   hosts: localhost
   gather_facts: false
@@ -39,8 +48,6 @@
       - "gnome-tweak-tool"
       - "workrave"
       - "workrave-gtk2"
-      - "filezilla"
-      - "redshift"
       - "gparted"
       - "libselinux-python"
       - "tmux"
@@ -50,13 +57,14 @@
       - "vim-powerline"
       - "vim-enhanced"
       - "vim-X11"
-  - name: Disable wayland for workrave
-    lineinfile:
-      dest: /etc/gdm/custom.conf
-      regexp: "^#WaylandEnable"
-      line: "WaylandEnable=false"
+  - name: Install flatpaks
+    flatpak:
+      name: "{{ item "}}
       state: present
-  - name: inotify watches for DropBox
+    with_items:
+      - "org.filezillaproject.Filezilla"
+      - "com.visualstudio.code"
+  - name: inotify watches for various reasons
     lineinfile:
       dest: /etc/sysctl.conf
       line: "fs.inotify.max_user_watches = 1000000"
@@ -73,20 +81,19 @@
   tags:
     - communication_tools
   tasks:
-  - name: Install packages
-    dnf:
+  - name: Install flatpaks
+    flatpak:
       name: "{{ item }}"
       state: present
     with_items:
-      - "pidgin"
-      - "thunderbird"
-      - "https://repo.skype.com/latest/skypeforlinux-64.rpm"
+      - "com.skype.Client"
+      - "com.slack.Slack"
 
-- name: VLC and codecs
+- name: Media
   hosts: localhost
   gather_facts: false
   tags:
-    - vlc_and_codecs
+    - media
   tasks:
     - name: Install packages
       dnf:
@@ -105,7 +112,13 @@
         - "gstreamer1-plugins-good"
         - "gstreamer1-plugins-good-extras"
         - "gstreamer1-plugins-ugly"
-        - "vlc"
+    - name: Install flatpaks
+      flatpak:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "org.videolan.VLC"
+        - "com.spotify.Client"
 
 - name: Graphic design, photo editing, video
   hosts: localhost
@@ -118,15 +131,20 @@
         name: "{{ item }}"
         state: present
       with_items:
-        - "darktable"
-        - "gimp"
-        - "blender"
-        - "geeqie"
         - "LibRaw"
         - "python2-click"
         - "python3-click"
         - "perl-Image-ExifTool"
         - "ImageMagick"
+    - name: Install flatpaks
+      flatpak:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "org.gimp.GIMP"
+        - "org.darktable.Darktable"
+        - "org.blender.Blender"
+        - "org.geeqie.Geeqie"
 
 - name: Java and WebEx support
   hosts: localhost
@@ -154,13 +172,3 @@
         - "libXtst.i686" 
         - "libart_lgpl.i686"
 
-          #- name: Flash plugin
-          #  hosts: localhost
-          #  gather_facts: false
-          #  tags:
-          #    - flash_plugin
-          #  tasks:
-          #    - name: Install Flash
-          #      dnf:
-          #        name: "https://fpdownload.adobe.com/pub/flashplayer/pdc/27.0.0.130/flash-player-ppapi-27.0.0.130-release.x86_64.rpm"
-          #        state: present
