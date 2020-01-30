@@ -59,7 +59,7 @@
       - "vim-X11"
   - name: Install flatpaks
     flatpak:
-      name: "{{ item "}}
+      name: "{{ item }}"
       state: present
     with_items:
       - "org.filezillaproject.Filezilla"
