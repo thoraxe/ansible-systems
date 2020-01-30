@@ -57,20 +57,19 @@
 
   - name: Install flatpaks
     flatpak:
-      name:
-        - "org.filezillaproject.Filezilla"
-        - "com.visualstudio.code"
+      name: "{{ item }}"
       state: present
+    with_items:
+      - "org.filezillaproject.Filezilla"
+      - "com.visualstudio.code"
   - name: inotify watches for various reasons
     lineinfile:
       dest: /etc/sysctl.conf
       line: "fs.inotify.max_user_watches = 1000000"
       state: present
       insertafter: EOF
-    register: inotify_result
   - name: persist inotify changes
     command: "sysctl -p"
-    when: inotify_result | changed
 
 - name: Communication
   hosts: localhost
@@ -80,10 +79,11 @@
   tasks:
   - name: Install flatpaks
     flatpak:
-      name:
-        - "com.skype.Client"
-        - "com.slack.Slack"
+      name: "{{ item }}"
       state: present
+    with_items:
+      - "com.skype.Client"
+      - "com.slack.Slack"
 
 - name: Media
   hosts: localhost
@@ -91,28 +91,28 @@
   tags:
     - media
   tasks:
-    - name: Install packages
-      dnf:
-        name: 
-          - "gstreamer-plugins-bad"
-          - "gstreamer-plugins-bad-free"
-          - "gstreamer-plugins-bad-free-extras"
-          - "gstreamer-plugins-bad-nonfree"
-          - "gstreamer-plugins-good"
-          - "gstreamer-plugins-good-extras"
-          - "gstreamer-plugins-ugly"
-          - "gstreamer1-plugins-bad-free"
-          - "gstreamer1-plugins-bad-free-extras"
-          - "gstreamer1-plugins-good"
-          - "gstreamer1-plugins-good-extras"
-          - "gstreamer1-plugins-ugly"
-        state: present
-    - name: Install flatpaks
-      flatpak:
-        name: 
-          - "org.videolan.VLC"
-          - "com.spotify.Client"
-        state: present
+  - name: Install packages
+    dnf:
+      name: 
+        - "gstreamer-plugins-bad"
+        - "gstreamer-plugins-bad-free"
+        - "gstreamer-plugins-bad-free-extras"
+        - "gstreamer-plugins-bad-nonfree"
+        - "gstreamer-plugins-good"
+        - "gstreamer-plugins-good-extras"
+        - "gstreamer-plugins-ugly"
+        - "gstreamer1-plugins-bad-free"
+        - "gstreamer1-plugins-bad-free-extras"
+        - "gstreamer1-plugins-good"
+        - "gstreamer1-plugins-good-extras"
+        - "gstreamer1-plugins-ugly"
+      state: present
+  - name: Install flatpaks
+    flatpak:
+      name: "{{ item }}"
+        - "org.videolan.VLC"
+        - "com.spotify.Client"
+      state: present
 
 - name: Graphic design, photo editing, video
   hosts: localhost
@@ -120,23 +120,24 @@
   tags:
     - graphic_design_and_photo_editing
   tasks:
-    - name: Install packages
-      dnf:
-        name:
-          - "LibRaw"
-          - "python2-click"
-          - "python3-click"
-          - "perl-Image-ExifTool"
-          - "ImageMagick"
-        state: present
-    - name: Install flatpaks
-      flatpak:
-        name: 
-          - "org.gimp.GIMP"
-          - "org.darktable.Darktable"
-          - "org.blender.Blender"
-          - "org.geeqie.Geeqie"
-        state: present
+  - name: Install packages
+    dnf:
+      name:
+        - "LibRaw"
+        - "python2-click"
+        - "python3-click"
+        - "perl-Image-ExifTool"
+        - "ImageMagick"
+      state: present
+  - name: Install flatpaks
+    flatpak:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - "org.gimp.GIMP"
+      - "org.darktable.Darktable"
+      - "org.blender.Blender"
+      - "org.geeqie.Geeqie"
 
 - name: Java and WebEx support
   hosts: localhost
@@ -144,21 +145,21 @@
   tags:
     - java_and_webex_support
   tasks:
-    - name: Install packages
-      dnf:
-        name:
-          - "java"
-          - "icedtea-web"
-          - "cairo.i686" 
-          - "pango.i686" 
-          - "mesa-libGL.i686" 
-          - "pangox-compat.i686" 
-          - "mesa-libglapi.i686" 
-          - "libXmu.i686" 
-          - "mesa-libEGL.i686" 
-          - "gtk2.i686" 
-          - "libpng.i686" 
-          - "alsa-lib.i686" 
-          - "libXtst.i686" 
-          - "libart_lgpl.i686"
-        state: present
+  - name: Install packages
+    dnf:
+      name:
+        - "java"
+        - "icedtea-web"
+        - "cairo.i686" 
+        - "pango.i686" 
+        - "mesa-libGL.i686" 
+        - "pangox-compat.i686" 
+        - "mesa-libglapi.i686" 
+        - "libXmu.i686" 
+        - "mesa-libEGL.i686" 
+        - "gtk2.i686" 
+        - "libpng.i686" 
+        - "alsa-lib.i686" 
+        - "libXtst.i686" 
+        - "libart_lgpl.i686"
+      state: present
