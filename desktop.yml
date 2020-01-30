@@ -110,9 +110,10 @@
   - name: Install flatpaks
     flatpak:
       name: "{{ item }}"
-        - "org.videolan.VLC"
-        - "com.spotify.Client"
       state: present
+    with_items:
+      - "org.videolan.VLC"
+      - "com.spotify.Client"
 
 - name: Graphic design, photo editing, video
   hosts: localhost
