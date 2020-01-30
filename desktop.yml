@@ -13,12 +13,12 @@
         - "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm"
         - "http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm"
 
+# assumes flatpak already installed (on Fedora it is)
 - name: Flatpak
   hosts: localhost
   tags:
     - flatpak
   tasks:
-    # assumes flatpak already installed (on Fedora it is)
     - name: Add flatpak repo
       cmd: 'flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo' 
 
