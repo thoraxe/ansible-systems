@@ -7,11 +7,10 @@
   tasks:
     - name: Install packages
       dnf:
-        name: "{{ item }}"
+        name:
+          - "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm"
+          - "http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm"
         state: present
-      with_items:
-        - "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm"
-        - "http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm"
 
 # assumes flatpak already installed (on Fedora it is)
 - name: Flatpak
@@ -38,32 +37,30 @@
       gpgkey: "https://dl.google.com/linux/linux_signing_key.pub"
   - name: Install packages
     dnf:
-      name: "{{ item }}"
+      name:
+        - "google-chrome-stable"
+        - "chrome-gnome-shell"
+        - "dropbox"
+        - "htop"
+        - "gnome-tweak-tool"
+        - "workrave"
+        - "workrave-gtk2"
+        - "gparted"
+        - "tmux"
+        - "powerline"
+        - "powerline-fonts"
+        - "tmux-powerline"
+        - "vim-powerline"
+        - "vim-enhanced"
+        - "vim-X11"
       state: present
-    with_items:
-      - "google-chrome-stable"
-      - "chrome-gnome-shell"
-      - "dropbox"
-      - "htop"
-      - "gnome-tweak-tool"
-      - "workrave"
-      - "workrave-gtk2"
-      - "gparted"
-      - "libselinux-python"
-      - "tmux"
-      - "powerline"
-      - "powerline-fonts"
-      - "tmux-powerline"
-      - "vim-powerline"
-      - "vim-enhanced"
-      - "vim-X11"
+
   - name: Install flatpaks
     flatpak:
-      name: "{{ item }}"
+      name:
+        - "org.filezillaproject.Filezilla"
+        - "com.visualstudio.code"
       state: present
-    with_items:
-      - "org.filezillaproject.Filezilla"
-      - "com.visualstudio.code"
   - name: inotify watches for various reasons
     lineinfile:
       dest: /etc/sysctl.conf
@@ -83,11 +80,10 @@
   tasks:
   - name: Install flatpaks
     flatpak:
-      name: "{{ item }}"
+      name:
+        - "com.skype.Client"
+        - "com.slack.Slack"
       state: present
-    with_items:
-      - "com.skype.Client"
-      - "com.slack.Slack"
 
 - name: Media
   hosts: localhost
@@ -97,28 +93,26 @@
   tasks:
     - name: Install packages
       dnf:
-        name: "{{ item }}"
+        name: 
+          - "gstreamer-plugins-bad"
+          - "gstreamer-plugins-bad-free"
+          - "gstreamer-plugins-bad-free-extras"
+          - "gstreamer-plugins-bad-nonfree"
+          - "gstreamer-plugins-good"
+          - "gstreamer-plugins-good-extras"
+          - "gstreamer-plugins-ugly"
+          - "gstreamer1-plugins-bad-free"
+          - "gstreamer1-plugins-bad-free-extras"
+          - "gstreamer1-plugins-good"
+          - "gstreamer1-plugins-good-extras"
+          - "gstreamer1-plugins-ugly"
         state: present
-      with_items:
-        - "gstreamer-plugins-bad"
-        - "gstreamer-plugins-bad-free"
-        - "gstreamer-plugins-bad-free-extras"
-        - "gstreamer-plugins-bad-nonfree"
-        - "gstreamer-plugins-good"
-        - "gstreamer-plugins-good-extras"
-        - "gstreamer-plugins-ugly"
-        - "gstreamer1-plugins-bad-free"
-        - "gstreamer1-plugins-bad-free-extras"
-        - "gstreamer1-plugins-good"
-        - "gstreamer1-plugins-good-extras"
-        - "gstreamer1-plugins-ugly"
     - name: Install flatpaks
       flatpak:
-        name: "{{ item }}"
+        name: 
+          - "org.videolan.VLC"
+          - "com.spotify.Client"
         state: present
-      with_items:
-        - "org.videolan.VLC"
-        - "com.spotify.Client"
 
 - name: Graphic design, photo editing, video
   hosts: localhost
@@ -128,23 +122,21 @@
   tasks:
     - name: Install packages
       dnf:
-        name: "{{ item }}"
+        name:
+          - "LibRaw"
+          - "python2-click"
+          - "python3-click"
+          - "perl-Image-ExifTool"
+          - "ImageMagick"
         state: present
-      with_items:
-        - "LibRaw"
-        - "python2-click"
-        - "python3-click"
-        - "perl-Image-ExifTool"
-        - "ImageMagick"
     - name: Install flatpaks
       flatpak:
-        name: "{{ item }}"
+        name: 
+          - "org.gimp.GIMP"
+          - "org.darktable.Darktable"
+          - "org.blender.Blender"
+          - "org.geeqie.Geeqie"
         state: present
-      with_items:
-        - "org.gimp.GIMP"
-        - "org.darktable.Darktable"
-        - "org.blender.Blender"
-        - "org.geeqie.Geeqie"
 
 - name: Java and WebEx support
   hosts: localhost
@@ -154,21 +146,19 @@
   tasks:
     - name: Install packages
       dnf:
-        name: "{{ item }}"
+        name:
+          - "java"
+          - "icedtea-web"
+          - "cairo.i686" 
+          - "pango.i686" 
+          - "mesa-libGL.i686" 
+          - "pangox-compat.i686" 
+          - "mesa-libglapi.i686" 
+          - "libXmu.i686" 
+          - "mesa-libEGL.i686" 
+          - "gtk2.i686" 
+          - "libpng.i686" 
+          - "alsa-lib.i686" 
+          - "libXtst.i686" 
+          - "libart_lgpl.i686"
         state: present
-      with_items:
-        - "java"
-        - "icedtea-web"
-        - "cairo.i686" 
-        - "pango.i686" 
-        - "mesa-libGL.i686" 
-        - "pangox-compat.i686" 
-        - "mesa-libglapi.i686" 
-        - "libXmu.i686" 
-        - "mesa-libEGL.i686" 
-        - "gtk2.i686" 
-        - "libpng.i686" 
-        - "alsa-lib.i686" 
-        - "libXtst.i686" 
-        - "libart_lgpl.i686"
-
