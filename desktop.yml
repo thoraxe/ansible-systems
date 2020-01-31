@@ -35,6 +35,16 @@
       enabled: yes
       gpgcheck: yes
       gpgkey: "https://dl.google.com/linux/linux_signing_key.pub"
+
+  - name: Set up Visual Studio Code repository
+    yum_repository:
+      name: code
+      description: Visual Studio Code
+      baseurl: "https://packages.microsoft.com/yumrepos/vscode"
+      enabled: yes
+      gpgcheck: yes
+      gpgkey: "https://packages.microsoft.com/keys/microsoft.asc"
+
   - name: Install packages
     dnf:
       name:
@@ -53,6 +63,7 @@
         - "vim-powerline"
         - "vim-enhanced"
         - "vim-X11"
+        - "code"
       state: present
 
   - name: Install flatpaks
@@ -61,7 +72,6 @@
       state: present
     with_items:
       - "org.filezillaproject.Filezilla"
-      - "com.visualstudio.code"
       - "com.github.bcedu.vgrive"
 
   - name: inotify watches for various reasons
