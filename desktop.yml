@@ -62,6 +62,8 @@
     with_items:
       - "org.filezillaproject.Filezilla"
       - "com.visualstudio.code"
+      - "com.github.bcedu.vgrive"
+
   - name: inotify watches for various reasons
     lineinfile:
       dest: /etc/sysctl.conf
