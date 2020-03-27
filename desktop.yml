@@ -111,6 +111,8 @@
         - "gstreamer1-plugins-good"
         - "gstreamer1-plugins-good-extras"
         - "gstreamer1-plugins-ugly"
+        - "gstreamer1-libav"
+        - "mediainfo"
       state: present
   - name: Install flatpaks
     flatpak:
