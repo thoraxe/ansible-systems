@@ -64,6 +64,7 @@
         - "vim-enhanced"
         - "vim-X11"
         - "code"
+        - "grive2"
       state: present
 
   - name: Install flatpaks
