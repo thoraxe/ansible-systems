@@ -64,7 +64,6 @@
         - "vim-enhanced"
         - "vim-X11"
         - "code"
-        - "grive2"
       state: present
 
   - name: Install flatpaks
@@ -74,6 +73,8 @@
     with_items:
       - "org.filezillaproject.Filezilla"
       - "com.github.bcedu.vgrive"
+      - "org.mozilla.Thunderbird"
+      - "com.getpostman.Postman"
 
   - name: inotify watches for various reasons
     lineinfile:
@@ -97,6 +98,7 @@
     with_items:
       - "com.skype.Client"
       - "com.slack.Slack"
+      - "com.discordapp.Discord"
 
 - name: Media
   hosts: localhost
@@ -122,6 +124,7 @@
     with_items:
       - "org.videolan.VLC"
       - "com.spotify.Client"
+      - "org.audacityteam.Audacity"
 
 - name: Graphic design, photo editing, video
   hosts: localhost
