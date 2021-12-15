@@ -1,17 +1,5 @@
 # vim: set ft=ansible:
 ---
-- name: RPMFusion repositories
-  hosts: localhost
-  tags:
-    - rpmfusion
-  tasks:
-    - name: Install packages
-      dnf:
-        name:
-          - "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm"
-          - "http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm"
-        state: present
-
 # assumes flatpak already installed (on Fedora it is)
 - name: Flatpak
   hosts: localhost
@@ -27,15 +15,6 @@
   tags:
     - browser_and_base
   tasks:
-  - name: Set up Chrome repository
-    yum_repository:
-      name: google-chrome
-      description: google-chrome
-      baseurl: "http://dl.google.com/linux/chrome/rpm/stable/x86_64"
-      enabled: yes
-      gpgcheck: yes
-      gpgkey: "https://dl.google.com/linux/linux_signing_key.pub"
-
   - name: Set up Visual Studio Code repository
     yum_repository:
       name: code
@@ -50,7 +29,6 @@
       name:
         - "google-chrome-stable"
         - "chrome-gnome-shell"
-        - "dropbox"
         - "htop"
         - "gnome-tweak-tool"
         - "workrave"
@@ -75,6 +53,7 @@
       - "com.github.bcedu.vgrive"
       - "org.mozilla.Thunderbird"
       - "com.getpostman.Postman"
+      - "org.gnome.DejaDup"
 
   - name: inotify watches for various reasons
     lineinfile:
@@ -136,7 +115,6 @@
     dnf:
       name:
         - "LibRaw"
-        - "python2-click"
         - "python3-click"
         - "perl-Image-ExifTool"
         - "ImageMagick"
@@ -162,16 +140,4 @@
       name:
         - "java"
         - "icedtea-web"
-        - "cairo.i686" 
-        - "pango.i686" 
-        - "mesa-libGL.i686" 
-        - "pangox-compat.i686" 
-        - "mesa-libglapi.i686" 
-        - "libXmu.i686" 
-        - "mesa-libEGL.i686" 
-        - "gtk2.i686" 
-        - "libpng.i686" 
-        - "alsa-lib.i686" 
-        - "libXtst.i686" 
-        - "libart_lgpl.i686"
       state: present
