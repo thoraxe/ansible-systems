@@ -11,6 +11,8 @@
 
 - name: Browser and base
   hosts: localhost
+  collections:
+    - community.general
   gather_facts: false
   tags:
     - browser_and_base
@@ -28,7 +30,6 @@
     dnf:
       name:
         - "google-chrome-stable"
-        - "chrome-gnome-shell"
         - "htop"
         - "gnome-tweak-tool"
         - "workrave"
@@ -42,10 +43,11 @@
         - "vim-enhanced"
         - "vim-X11"
         - "code"
+        #- "chrome-gnome-shell"
       state: present
 
   - name: Install flatpaks
-    flatpak:
+    community.general.flatpak:
       name: "{{ item }}"
       state: present
     with_items:
@@ -92,7 +94,7 @@
         - "gstreamer1-plugins-bad-free-extras"
         - "gstreamer1-plugins-good"
         - "gstreamer1-plugins-good-extras"
-        - "gstreamer1-plugins-ugly"
+        - "gstreamer1-plugins-ugly-free"
         - "gstreamer1-libav"
         - "mediainfo"
       state: present
@@ -139,5 +141,4 @@
     dnf:
       name:
         - "java"
-        - "icedtea-web"
       state: present
