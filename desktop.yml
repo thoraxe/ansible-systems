@@ -43,7 +43,8 @@
         - "vim-enhanced"
         - "vim-X11"
         - "code"
-        #- "chrome-gnome-shell"
+        - "libappindicator"
+        - "gnome-extensions-app"
       state: present
 
   - name: Install flatpaks
@@ -141,4 +142,17 @@
     dnf:
       name:
         - "java"
+      state: present
+
+- name: Godot mono and csharp
+  hosts: localhost
+  gather_facts: false
+  tags:
+    - godot_dev
+  tasks:
+  - name: Install packages
+    dnf:
+      name:
+        - "dotnet"
+        - "nuget"
       state: present
